@@ -12,8 +12,18 @@ public class field {
     }
 
     public static void printBoard(){
+        
+        System.out.print("  ");
+        for(int a = 0; a < 10; a++){
+            System.out.print(a + " ");
+        }
+        System.out.println();
+
+
         for(int i = 0; i < boardSize; i++) {
-			for (int j = 0; j < boardSize; j++) {
+            System.out.print(i + " ");
+            
+            for (int j = 0; j < boardSize; j++) {
 				System.out.print(gameBoard[i][j] + " ");
             }
             System.out.println();
