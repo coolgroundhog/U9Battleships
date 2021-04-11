@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class field {
 
     static int boardSize = 10;
@@ -31,6 +33,18 @@ public class field {
         System.out.println();
     }
 
+
+    public static void implementDestroyer(){
+        Random rand = new Random();
+        int destroyerPlacementX = rand.nextInt(10);
+        int destroyerPlacementY = rand.nextInt(10);
+
+        gameBoard[destroyerPlacementX][destroyerPlacementY] = 'D';
+
+
+        int destroyerHorizontalOrVertical = rand.nextInt(1);
+        
+    }
 
     /*
     static private char[][] myMap;
@@ -68,6 +82,7 @@ public class field {
     */
     public static void main(String[] args) {
         fillBoard();
+        implementDestroyer();
         printBoard();
     }
 }
