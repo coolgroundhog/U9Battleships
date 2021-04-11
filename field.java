@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner; 
 
 public class field {
 
@@ -33,7 +34,7 @@ public class field {
         System.out.println();
     }
 
-
+/*
     public static void implementDestroyer(){
         Random rand = new Random();
         int destroyerPlacementX = rand.nextInt(10);
@@ -56,9 +57,10 @@ public class field {
         }
     }
 
-        
+        */
+
+    static Random rand = new Random();
     public static void implementCruiser(){
-        Random rand = new Random();
 
         int horizontalOrVertical = rand.nextInt(2);
 
@@ -91,8 +93,15 @@ public class field {
             int placementX = rand.nextInt(10);
             int placementY = rand.nextInt(8) + length - 1;
 
+            int counter = 0;
+
             for (int i = 0; i < length; i++){
-                gameBoard[placementX][placementY - i] = displayCharacter;
+                if (gameBoard[placementX][placementY - i] == '-'){
+                    gameBoard[placementX][placementY - i] = displayCharacter;
+                }
+                else {
+                    
+                }
             }
         }
 
@@ -106,6 +115,21 @@ public class field {
         }
 
     }
+
+
+    public static void fire(int x, int y){
+        if (x>9 || x<0 || y>9 || y<0) {
+            System.out.println("Your shot misses since it's outside the board");
+        }
+        else if (gameBoard[x][y] == 'A' || gameBoard[x][y] == 'B' || gameBoard[x][y] == 'C' || gameBoard[x][y] == 'D'){
+            gameBoard[x][y] = 'X';
+        }
+        else{
+            gameBoard[x][y] = 'O';
+        }
+
+    }
+
 
     /*
     static private char[][] myMap;
@@ -142,12 +166,27 @@ public class field {
 
     */
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
         fillBoard();
-        implementDestroyer();
-        //implementCruiser();
 
+
+        placeShip('A', 5);
+        placeShip('B', 4);
         placeShip('C', 3);
+        placeShip('D', 2);
+        placeShip('D', 2);
 
         printBoard();
+
+        while (true){
+            String userInput = input.nextLine();
+            if (userInput.startsWith("fire")){
+                //userInput.charAt(5)
+            }
+        }
+
+
+
     }
 }
