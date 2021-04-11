@@ -123,6 +123,7 @@ public class field {
         }
         else if (gameBoard[x][y] == 'A' || gameBoard[x][y] == 'B' || gameBoard[x][y] == 'C' || gameBoard[x][y] == 'D'){
             gameBoard[x][y] = 'X';
+            System.out.println("Hit!");
         }
         else{
             gameBoard[x][y] = 'O';
@@ -179,10 +180,29 @@ public class field {
 
         printBoard();
 
-        while (true){
+        while (1==1){
             String userInput = input.nextLine();
             if (userInput.startsWith("fire")){
-                //userInput.charAt(5)
+
+                System.out.print("X coordinate: ");
+                int xCoordinate = input.nextInt();
+
+
+                System.out.print("Y coordinate: ");
+                int yCoordinate = input.nextInt();
+
+                fire(xCoordinate, yCoordinate);
+
+                printBoard();
+
+            }
+            else if (userInput.equals("help")){
+                System.out.println("Possible commands: \n" + 
+                "view board - displays the user’s board\n" + 
+                "view ships - displays the placement of the ships\n" +
+                "fire - fires a missile at chosen cell\n" +
+                "stats - prints out the game statistics\n" +
+                "quit - exits the game");
             }
         }
 
