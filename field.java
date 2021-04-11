@@ -42,8 +42,18 @@ public class field {
         gameBoard[destroyerPlacementX][destroyerPlacementY] = 'D';
 
 
-        int destroyerHorizontalOrVertical = rand.nextInt(1);
-        
+        if (gameBoard[destroyerPlacementX + 1][destroyerPlacementY] == '-'){
+            gameBoard[destroyerPlacementX + 1][destroyerPlacementY] = 'D';
+        }
+        else if (gameBoard[destroyerPlacementX - 1][destroyerPlacementY] == '-'){
+            gameBoard[destroyerPlacementX - 1][destroyerPlacementY] = 'D';
+        }
+        else if (gameBoard[destroyerPlacementX][destroyerPlacementY + 1] == '-'){
+            gameBoard[destroyerPlacementX][destroyerPlacementY + 1] = 'D';
+        }
+        else if (gameBoard[destroyerPlacementX][destroyerPlacementY -1] == '-'){
+            gameBoard[destroyerPlacementX][destroyerPlacementY -1] = 'D';
+        }
     }
 
     /*
