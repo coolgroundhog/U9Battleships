@@ -56,32 +56,56 @@ public class field {
         }
     }
 
-    //public static void implementShip(char charRepresentation, size){
         
-        public static void implementCruiser(){
-            Random rand = new Random();
+    public static void implementCruiser(){
+        Random rand = new Random();
 
-            int horizontalOrVertical = rand.nextInt(2);
+        int horizontalOrVertical = rand.nextInt(2);
 
-            System.out.println(horizontalOrVertical);
+        System.out.println(horizontalOrVertical);
 
-            if (horizontalOrVertical == 1){
-                int destroyerPlacementX = rand.nextInt(10);
-                int destroyerPlacementY = rand.nextInt(8) + 2;
-                gameBoard[destroyerPlacementX][destroyerPlacementY] = 'C';
-                gameBoard[destroyerPlacementX][destroyerPlacementY - 1] = 'C';
-                gameBoard[destroyerPlacementX][destroyerPlacementY - 2] = 'C';
-            }
-
-            if (horizontalOrVertical == 0){
-                int destroyerPlacementX = rand.nextInt(8) + 2;
-                int destroyerPlacementY = rand.nextInt(10);
-                gameBoard[destroyerPlacementX][destroyerPlacementY] = 'C';
-                gameBoard[destroyerPlacementX - 1][destroyerPlacementY] = 'C';
-                gameBoard[destroyerPlacementX - 2][destroyerPlacementY] = 'C';
-            }
-
+        if (horizontalOrVertical == 1){
+            int destroyerPlacementX = rand.nextInt(10);
+            int destroyerPlacementY = rand.nextInt(8) + 2;
+            gameBoard[destroyerPlacementX][destroyerPlacementY] = 'C';
+            gameBoard[destroyerPlacementX][destroyerPlacementY - 1] = 'C';
+            gameBoard[destroyerPlacementX][destroyerPlacementY - 2] = 'C';
         }
+
+        if (horizontalOrVertical == 0){
+            int destroyerPlacementX = rand.nextInt(8) + 2;
+            int destroyerPlacementY = rand.nextInt(10);
+            gameBoard[destroyerPlacementX][destroyerPlacementY] = 'C';
+            gameBoard[destroyerPlacementX - 1][destroyerPlacementY] = 'C';
+            gameBoard[destroyerPlacementX - 2][destroyerPlacementY] = 'C';
+        }
+
+    }
+
+    public static void placeShip(char displayCharacter, int length){
+        Random rand = new Random();
+
+        int horizontalOrVertical = rand.nextInt(2);
+
+        if (horizontalOrVertical == 1){
+            int placementX = rand.nextInt(10);
+            int placementY = rand.nextInt(8) + length - 1;
+
+            for (int i = 0; i < length; i++){
+                gameBoard[placementX][placementY - i] = displayCharacter;
+            }
+        }
+
+        else if (horizontalOrVertical == 0){
+            int placementX = rand.nextInt(8) + length - 1;
+            int placementY = rand.nextInt(10);
+
+            for (int i = 0; i < length; i++){
+                gameBoard[placementX - i][placementY] = displayCharacter;
+            }
+        }
+
+    }
 
     /*
     static private char[][] myMap;
@@ -120,7 +144,10 @@ public class field {
     public static void main(String[] args) {
         fillBoard();
         implementDestroyer();
-        implementCruiser();
+        //implementCruiser();
+
+        placeShip('C', 3);
+
         printBoard();
     }
 }
