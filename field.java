@@ -15,7 +15,7 @@ public class field {
 		}
     }
 
-    public static void printBoard(){
+    public static void printBoard(char[][] map){
         
         System.out.print("  ");
         for(int a = 0; a < 10; a++){
@@ -28,7 +28,7 @@ public class field {
             System.out.print(i + " ");
             
             for (int j = 0; j < boardSize; j++) {
-				System.out.print(gameBoard[i][j] + " ");
+				System.out.print(map[i][j] + " ");
             }
             System.out.println();
         }
@@ -121,7 +121,7 @@ public class field {
     static int numberOfMissilesFired = 0;
     static int numberOfTimesHit = 0;
     static int numberOfShipsSunk = 0;
-    static int hitRatio = 0;
+    static float hitRatio = numberOfTimesHit/numberOfMissilesFired;
 
     public static void fire(int x, int y){
 
@@ -189,7 +189,7 @@ public class field {
         placeShip('D', 2);
         placeShip('D', 2);
 
-        printBoard();
+        printBoard(gameBoard);
 
         while (1==1){
             String userInput = input.nextLine();
@@ -204,7 +204,7 @@ public class field {
 
                 fire(xCoordinate, yCoordinate);
 
-                printBoard();
+                printBoard(gameBoard);
 
             }
 
@@ -218,6 +218,16 @@ public class field {
                 System.out.println("Hit ratio: " + hitRatio);
                 System.out.println("Number of ships sunk:" + numberOfShipsSunk);
             }
+
+            else if (userInput.equals("view ships")){
+                printBoard(solutionBoard);
+            }
+
+            else {
+                System.out.println("Command not found!");
+            }
+
+
         }
 
 
