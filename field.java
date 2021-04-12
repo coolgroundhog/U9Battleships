@@ -5,11 +5,12 @@ public class field {
 
     static int boardSize = 10;
     static char[][] gameBoard = new char[boardSize][boardSize];
+    static char [][] solutionBoard = new char[boardSize][boardSize];
     
-    public static void fillBoard(){
+    public static void fillBoard(char [][] map){
         for(int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				gameBoard[i][j] = '-';
+				map[i][j] = '-';
 			}
 		}
     }
@@ -96,8 +97,8 @@ public class field {
             int counter = 0;
 
             for (int i = 0; i < length; i++){
-                if (gameBoard[placementX][placementY - i] == '-'){
-                    gameBoard[placementX][placementY - i] = displayCharacter;
+                if (solutionBoard[placementX][placementY - i] == '-'){
+                    solutionBoard[placementX][placementY - i] = displayCharacter;
                 }
                 else {
                     
@@ -110,24 +111,33 @@ public class field {
             int placementY = rand.nextInt(10);
 
             for (int i = 0; i < length; i++){
-                gameBoard[placementX - i][placementY] = displayCharacter;
+                solutionBoard[placementX - i][placementY] = displayCharacter;
             }
         }
 
     }
 
 
+    static int numberOfMissilesFired = 0;
+    static int numberOfTimesHit = 0;
+    static int numberOfShipsSunk = 0;
+    static int hitRatio = 0;
+
     public static void fire(int x, int y){
+
         if (x>9 || x<0 || y>9 || y<0) {
             System.out.println("Your shot misses since it's outside the board");
         }
-        else if (gameBoard[x][y] == 'A' || gameBoard[x][y] == 'B' || gameBoard[x][y] == 'C' || gameBoard[x][y] == 'D'){
+        else if (solutionBoard[x][y] == 'A' || solutionBoard[x][y] == 'B' || solutionBoard[x][y] == 'C' || solutionBoard[x][y] == 'D'){
             gameBoard[x][y] = 'X';
             System.out.println("Hit!");
+            numberOfTimesHit++;
         }
         else{
             gameBoard[x][y] = 'O';
         }
+
+        numberOfMissilesFired++;
 
     }
 
@@ -169,7 +179,8 @@ public class field {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
-        fillBoard();
+        fillBoard(gameBoard);
+        fillBoard(solutionBoard);
 
 
         placeShip('A', 5);
@@ -196,13 +207,16 @@ public class field {
                 printBoard();
 
             }
+
+
             else if (userInput.equals("help")){
-                System.out.println("Possible commands: \n" + 
-                "view board - displays the user’s board\n" + 
-                "view ships - displays the placement of the ships\n" +
-                "fire - fires a missile at chosen cell\n" +
-                "stats - prints out the game statistics\n" +
-                "quit - exits the game");
+                System.out.println("Possible commands: \n view board - displays the user’s board\nview ships - displays the placement of the ships\nfire - fires a missile at chosen cell\nstats - prints out the game statistics\nquit - exits the game");
+            }
+
+            else if (userInput.equals("stats")){
+                System.out.println("Number of missiles fired: " + numberOfMissilesFired);
+                System.out.println("Hit ratio: " + hitRatio);
+                System.out.println("Number of ships sunk:" + numberOfShipsSunk);
             }
         }
 
