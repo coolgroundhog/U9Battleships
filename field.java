@@ -92,7 +92,7 @@ public class field {
 
         if (horizontalOrVertical == 1){
             int placementX = rand.nextInt(10);
-            int placementY = rand.nextInt(8) + length - 1;
+            int placementY = rand.nextInt(10-length-1) + length - 1;
 
             int counter = 0;
 
@@ -121,7 +121,9 @@ public class field {
     static int numberOfMissilesFired = 0;
     static int numberOfTimesHit = 0;
     static int numberOfShipsSunk = 0;
-    static float hitRatio = numberOfTimesHit/numberOfMissilesFired;
+    static int hitRatio = 0;
+    
+
 
     public static void fire(int x, int y){
 
@@ -132,6 +134,7 @@ public class field {
             gameBoard[x][y] = 'X';
             System.out.println("Hit!");
             numberOfTimesHit++;
+            hitRatio = numberOfTimesHit / numberOfMissilesFired;
         }
         else{
             gameBoard[x][y] = 'O';
