@@ -3,11 +3,22 @@ import java.util.Scanner;
 
 public class field {
 
+    private char[][] gameBoard;
+    private char[][] solutionBoard;
+
+    /**
+     * Instantiate a new Maze object.
+     */
+    public field() {
+        gameBoard = new char[boardSize][boardSize];
+        solutionBoard = new char[boardSize][boardSize];
+        fillBoard(gameBoard);
+        fillBoard(solutionBoard);
+    }
+
     static int boardSize = 10;
-    static char[][] gameBoard = new char[boardSize][boardSize];
-    static char [][] solutionBoard = new char[boardSize][boardSize];
-    
-    public static void fillBoard(char [][] map){
+
+    private void fillBoard(char [][] map){
         for(int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				map[i][j] = '-';
@@ -15,7 +26,16 @@ public class field {
 		}
     }
 
-    public static void printBoard(char[][] map){
+    public void printBoard(){
+        printBoard(gameBoard);
+    }
+
+    public void printSolution(){
+        printBoard(solutionBoard);
+    }
+
+
+    public void printBoard(char[][] map){
         
         System.out.print("  ");
         for(int a = 0; a < 10; a++){
@@ -35,11 +55,9 @@ public class field {
         System.out.println();
     }
 
-
-
-
     static Random rand = new Random();
-    public static void implementCruiser(){
+
+    public void implementCruiser(){
 
         int horizontalOrVertical = rand.nextInt(2);
 
@@ -64,7 +82,7 @@ public class field {
     }
 
 
-    public static void placeShip(char displayCharacter, int length){
+    public void placeShip(char displayCharacter, int length){
         System.out.println("placeShip is working");
 
         Random rand = new Random();
@@ -128,22 +146,17 @@ public class field {
 
 
 
-    static int numberOfMissilesFired = 0;
-    static int numberOfTimesHit = 0;
-    static int numberOfShipsSunk = 0;
-    
-    //Count number of As, Bs, Cs, Ds left on board so you'd know when an entire ship is down
-    static int aShip = 5;
-    static int bShip = 4;
-    static int cShip = 3;
+    int numberOfMissilesFired = 0;
+    int numberOfTimesHit = 0;
+    int numberOfShipsSunk = 0;
 
 
-    static int shipsSunk[] = {5, 4, 3, 2};
+    int shipsSunk[] = {5, 4, 3, 2};
     
 
 
 
-    public static void fire(int x, int y){
+    public void fire(int x, int y){
 
         if (x>9 || x<0 || y>9 || y<0) {
             System.out.println("Your shot misses since it's outside the board");
