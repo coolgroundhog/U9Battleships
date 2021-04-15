@@ -230,7 +230,9 @@ public class field {
 
         printBoard(gameBoard);
 
-        while (1==1){
+        int loop = 1;
+
+        while (loop==1){
             String userInput = input.nextLine();
             if (userInput.startsWith("fire")){
 
@@ -278,6 +280,11 @@ public class field {
 
             else if (userInput.equals("view ships")){
                 printBoard(solutionBoard);
+            }
+
+            else if (userInput.equals("quit")){
+                System.out.println("Bye!");
+                loop = 0;
             }
 
             else {
