@@ -123,6 +123,15 @@ public class field {
     static int numberOfShipsSunk = 0;
     static int hitRatio = 0;
     
+    //Count number of As, Bs, Cs, Ds left on board so you'd know when an entire ship is down
+    static int aShip = 5;
+    static int bShip = 4;
+    static int cShip = 3;
+
+
+    static int shipsSunk[] = new int[3];
+    
+
 
 
     public static void fire(int x, int y){
@@ -135,6 +144,15 @@ public class field {
             System.out.println("Hit!");
             numberOfTimesHit++;
             hitRatio = numberOfTimesHit / numberOfMissilesFired;
+            if (gameBoard[x][y] == 'a'){
+                aShip--;
+            }
+            else if (gameBoard[x][y] == 'b'){
+                bShip--;
+            }
+            else if (gameBoard[x][y] == 'c'){
+                cShip--;
+            }
         }
         else{
             gameBoard[x][y] = 'O';
@@ -144,6 +162,11 @@ public class field {
 
     }
 
+    public static void countSunkenShips(){
+        for(int i = 0; i < boardSize; i++) {
+
+		}
+    }
 
     /*
     static private char[][] myMap;
