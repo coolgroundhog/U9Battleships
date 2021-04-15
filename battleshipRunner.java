@@ -5,6 +5,8 @@ public class battleshipRunner {
 
     public static field myMap = new field();
 
+    public static aircraftCarrier dfdf = new aircraftCarrier();
+
     //Allows for user input for commands
     static Scanner input = new Scanner(System.in);
 
@@ -53,7 +55,7 @@ public class battleshipRunner {
 
             else if (userInput.equals("stats")){
                 System.out.println("Number of missiles fired: " + myMap.numberOfMissilesFired);
-                
+
                 if (myMap.numberOfMissilesFired > 0){
                     System.out.println("Hit ratio: " + myMap.numberOfTimesHit / myMap.numberOfMissilesFired);
                 }
@@ -84,6 +86,13 @@ public class battleshipRunner {
                 System.out.println("Bye!");
                 loop = 0;
             }
+
+            else if (userInput.equals("info")){
+                System.out.println(dfdf.length);
+            }
+
+
+
 
             else {
                 System.out.println("Command not found!");
