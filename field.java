@@ -128,7 +128,7 @@ public class field {
     static int cShip = 3;
 
 
-    static int shipsSunk[] = new int[3];
+    static int shipsSunk[] = {5, 4, 3, 2};
     
 
 
@@ -143,17 +143,17 @@ public class field {
             System.out.println("Hit!");
             numberOfTimesHit++;
             
-            /*
-            if (gameBoard[x][y] == 'a'){
-                aShip--;
+
+            if (solutionBoard[x][y] == 'A'){
+                shipsSunk[0]--;
             }
-            else if (gameBoard[x][y] == 'b'){
-                bShip--;
+            else if (solutionBoard[x][y] == 'B'){
+                shipsSunk[1]--;
             }
-            else if (gameBoard[x][y] == 'c'){
-                cShip--;
+            else if (solutionBoard[x][y] == 'C'){
+                shipsSunk[2]--;
             }
-            */
+
         }
         else{
             gameBoard[x][y] = 'O';
@@ -237,7 +237,7 @@ public class field {
 
 
             else if (userInput.equals("help")){
-                System.out.println("Possible commands: \n view board - displays the user’s board\nview ships - displays the placement of the ships\nfire - fires a missile at chosen cell\nstats - prints out the game statistics\nquit - exits the game");
+                System.out.println("Possible commands: \nview board - displays the user’s board\nview ships - displays the placement of the ships\nfire - fires a missile at chosen cell\nstats - prints out the game statistics\nquit - exits the game");
             }
 
             else if (userInput.equals("stats")){
@@ -249,7 +249,19 @@ public class field {
                     System.out.println("Hit ratio: N/A; missles weren't fired");
                 }
 
+                for (int i = 0; i<3; i++){
+                    if (shipsSunk[i] == 0){
+                        numberOfShipsSunk++;
+                    }
+                }
+
                 System.out.println("Number of ships sunk:" + numberOfShipsSunk);
+
+                for (int i = 0; i<3; i++){
+                    System.out.println(shipsSunk[i] + " ");
+                }
+
+
             }
 
             else if (userInput.equals("view ships")){
