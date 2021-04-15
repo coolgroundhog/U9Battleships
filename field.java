@@ -121,7 +121,6 @@ public class field {
     static int numberOfMissilesFired = 0;
     static int numberOfTimesHit = 0;
     static int numberOfShipsSunk = 0;
-    static int hitRatio = 0;
     
     //Count number of As, Bs, Cs, Ds left on board so you'd know when an entire ship is down
     static int aShip = 5;
@@ -143,7 +142,8 @@ public class field {
             gameBoard[x][y] = 'X';
             System.out.println("Hit!");
             numberOfTimesHit++;
-            hitRatio = numberOfTimesHit / numberOfMissilesFired;
+            
+            /*
             if (gameBoard[x][y] == 'a'){
                 aShip--;
             }
@@ -153,6 +153,7 @@ public class field {
             else if (gameBoard[x][y] == 'c'){
                 cShip--;
             }
+            */
         }
         else{
             gameBoard[x][y] = 'O';
@@ -241,7 +242,13 @@ public class field {
 
             else if (userInput.equals("stats")){
                 System.out.println("Number of missiles fired: " + numberOfMissilesFired);
-                System.out.println("Hit ratio: " + hitRatio);
+                if (numberOfMissilesFired > 0){
+                    System.out.println("Hit ratio: " + numberOfTimesHit / numberOfMissilesFired);
+                }
+                else if (numberOfMissilesFired == 0){
+                    System.out.println("Hit ratio: N/A; missles weren't fired");
+                }
+
                 System.out.println("Number of ships sunk:" + numberOfShipsSunk);
             }
 
