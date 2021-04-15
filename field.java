@@ -35,30 +35,8 @@ public class field {
         System.out.println();
     }
 
-/*
-    public static void implementDestroyer(){
-        Random rand = new Random();
-        int destroyerPlacementX = rand.nextInt(10);
-        int destroyerPlacementY = rand.nextInt(10);
-
-        gameBoard[destroyerPlacementX][destroyerPlacementY] = 'D';
 
 
-        if (gameBoard[destroyerPlacementX + 1][destroyerPlacementY] == '-'){
-            gameBoard[destroyerPlacementX + 1][destroyerPlacementY] = 'D';
-        }
-        else if (gameBoard[destroyerPlacementX - 1][destroyerPlacementY] == '-'){
-            gameBoard[destroyerPlacementX - 1][destroyerPlacementY] = 'D';
-        }
-        else if (gameBoard[destroyerPlacementX][destroyerPlacementY + 1] == '-'){
-            gameBoard[destroyerPlacementX][destroyerPlacementY + 1] = 'D';
-        }
-        else if (gameBoard[destroyerPlacementX][destroyerPlacementY -1] == '-'){
-            gameBoard[destroyerPlacementX][destroyerPlacementY -1] = 'D';
-        }
-    }
-
-        */
 
     static Random rand = new Random();
     public static void implementCruiser(){
@@ -85,37 +63,69 @@ public class field {
 
     }
 
+
     public static void placeShip(char displayCharacter, int length){
+        System.out.println("placeShip is working");
+
         Random rand = new Random();
 
         int horizontalOrVertical = rand.nextInt(2);
 
-        if (horizontalOrVertical == 1){
-            int placementX = rand.nextInt(10);
-            int placementY = rand.nextInt(10-length-1) + length - 1;
+        
+        int counter = 0;
 
-            int counter = 0;
+        if (horizontalOrVertical == 1){
+
+            int placementX = 0;
+            int placementY = 0;
+
+            while (counter!=length){
+                counter = 0;
+
+                placementX = rand.nextInt(10);
+                placementY = rand.nextInt(10-length-1) + length - 1;
+    
+                for (int i = 0; i < length; i++){
+                    if (solutionBoard[placementX][placementY - i] == '-'){
+                        //solutionBoard[placementX][placementY - i] = displayCharacter;
+                        counter++;
+                    }
+                } 
+
+                System.out.println("asdfsd");
+                //System.out.println("For " + displayCharacter + ", counter is currently " + counter);
+            }
 
             for (int i = 0; i < length; i++){
-                if (solutionBoard[placementX][placementY - i] == '-'){
-                    solutionBoard[placementX][placementY - i] = displayCharacter;
-                }
-                else {
-                    
+                solutionBoard[placementX][placementY - i] = displayCharacter;
                 }
             }
-        }
 
+    
         else if (horizontalOrVertical == 0){
-            int placementX = rand.nextInt(8) + length - 1;
-            int placementY = rand.nextInt(10);
+            int placementX = 0;
+            int placementY = 0;
+    
+            while (counter!=length){
+                counter = 0;
+                placementX = rand.nextInt(10-length-1) + length - 1;
+                placementY = rand.nextInt(10);
 
+                for (int i = 0; i < length; i++){
+                    if (solutionBoard[placementX - i][placementY] == '-'){
+                        //solutionBoard[placementX - i][placementY] = displayCharacter;
+                        counter++;
+                    }
+                }
+
+            }
             for (int i = 0; i < length; i++){
                 solutionBoard[placementX - i][placementY] = displayCharacter;
+                }
             }
+
         }
 
-    }
 
 
     static int numberOfMissilesFired = 0;
@@ -204,6 +214,8 @@ public class field {
 
     */
     public static void main(String[] args) {
+        System.out.println("aDFasdf");
+        
         Scanner input = new Scanner(System.in);
         
         fillBoard(gameBoard);
