@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class field {
 
     private char[][] gameBoard;
-    private char[][] solutionBoard;
+    static char[][] solutionBoard;
+    public Ship[] ships;
 
     /**
      * Instantiate a new Maze object.
@@ -81,15 +82,14 @@ public class field {
 
     }
 
+    public static int[][] positionStoring = new int[5][2];
 
-    public void placeShip(char displayCharacter, int length){
-        System.out.println("placeShip is working");
-
+    public static void placeShip(char displayCharacter, int length, int shipOrder){
+        
         Random rand = new Random();
 
         int horizontalOrVertical = rand.nextInt(2);
 
-        
         int counter = 0;
 
         if (horizontalOrVertical == 1){
@@ -109,14 +109,17 @@ public class field {
                         counter++;
                     }
                 } 
-
-                System.out.println("asdfsd");
                 //System.out.println("For " + displayCharacter + ", counter is currently " + counter);
             }
 
             for (int i = 0; i < length; i++){
                 solutionBoard[placementX][placementY - i] = displayCharacter;
                 }
+
+
+            positionStoring[shipOrder][0] = placementX;
+            positionStoring[shipOrder][1] = placementY;
+        
             }
 
     
@@ -131,8 +134,8 @@ public class field {
 
                 for (int i = 0; i < length; i++){
                     if (solutionBoard[placementX - i][placementY] == '-'){
-                        //solutionBoard[placementX - i][placementY] = displayCharacter;
                         counter++;
+                        System.out.println(solutionBoard[placementX - i][placementY]);
                     }
                 }
 
@@ -140,10 +143,14 @@ public class field {
             for (int i = 0; i < length; i++){
                 solutionBoard[placementX - i][placementY] = displayCharacter;
                 }
+
+            placementX = positionStoring[shipOrder][0];
+            placementY = positionStoring[shipOrder][1];
+
             }
+        
 
-        }
-
+    }
 
 
     int numberOfMissilesFired = 0;

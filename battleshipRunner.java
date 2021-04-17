@@ -5,8 +5,6 @@ public class battleshipRunner {
 
     public static field myMap = new field();
 
-    public static aircraftCarrier dfdf = new aircraftCarrier();
-
     //Allows for user input for commands
     static Scanner input = new Scanner(System.in);
 
@@ -20,11 +18,11 @@ public class battleshipRunner {
         myMap.printSolution();
 
 
-        myMap.placeShip('A', 5);
-        myMap.placeShip('B', 4);
-        myMap.placeShip('C', 3);
-        myMap.placeShip('D', 2);
-        myMap.placeShip('D', 2);
+        myMap.placeShip('A', 5, 0);
+        myMap.placeShip('B', 4, 1);
+        myMap.placeShip('C', 3, 2);
+        myMap.placeShip('D', 2, 3);
+        myMap.placeShip('D', 2, 4);
 
         myMap.printBoard();
 
@@ -87,8 +85,15 @@ public class battleshipRunner {
                 loop = 0;
             }
 
-            else if (userInput.equals("info")){
-                System.out.println(dfdf.length);
+            else if (userInput.equals("info aircraft")){
+                aircraftCarrier aCarrier = new aircraftCarrier(myMap.positionStoring[0][0], myMap.positionStoring[0][1]);
+
+                System.out.println("Length: " + aCarrier.length);
+                System.out.println("Cost: " + aCarrier.getCost());
+                System.out.println("Weaponry: " + aCarrier.weaponry);
+                System.out.println("X-coordinate: "  + aCarrier.locationX);
+
+                System.out.println(myMap.positionStoring[0][0]);
             }
 
 
