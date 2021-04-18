@@ -8,25 +8,27 @@ public class field {
     public Ship[] ships;
 
     /**
-     * Instantiate a new Maze object.
+     * Instantiate a new field object.
      */
     public field() {
-        gameBoard = new char[boardSize][boardSize];
-        solutionBoard = new char[boardSize][boardSize];
+        gameBoard = new char[10][10];
+        solutionBoard = new char[10][10];
         fillBoard(gameBoard);
         fillBoard(solutionBoard);
     }
 
-    static int boardSize = 10;
 
+    //Fills board with '-' (blanks)
     private void fillBoard(char [][] map){
-        for(int i = 0; i < boardSize; i++) {
-			for (int j = 0; j < boardSize; j++) {
+        for(int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
 				map[i][j] = '-';
 			}
 		}
     }
 
+
+    //PRINTING THE BOARD
     public void printBoard(){
         printBoard(gameBoard);
     }
@@ -38,17 +40,18 @@ public class field {
 
     public void printBoard(char[][] map){
         
-        System.out.print("  ");
+        System.out.print("  "); //for the small space in the top left of board
         for(int a = 0; a < 10; a++){
-            System.out.print(a + " ");
+            System.out.print(a + " ");//for top row label that goes from 0-9
         }
         System.out.println();
 
 
-        for(int i = 0; i < boardSize; i++) {
-            System.out.print(i + " ");
+        //two for loops to iterate through the field
+        for(int i = 0; i < 10; i++) {
+            System.out.print(i + " ");//at beginning of every row, print the row number
             
-            for (int j = 0; j < boardSize; j++) {
+            for (int j = 0; j < 10; j++) {
 				System.out.print(map[i][j] + " ");
             }
             System.out.println();
@@ -56,73 +59,51 @@ public class field {
         System.out.println();
     }
 
-    static Random rand = new Random();
 
-    public void implementCruiser(){
+    static Random rand = new Random();//for randomly generating ship position
 
-        int horizontalOrVertical = rand.nextInt(2);
-
-        System.out.println(horizontalOrVertical);
-
-        if (horizontalOrVertical == 1){
-            int destroyerPlacementX = rand.nextInt(10);
-            int destroyerPlacementY = rand.nextInt(8) + 2;
-            gameBoard[destroyerPlacementX][destroyerPlacementY] = 'C';
-            gameBoard[destroyerPlacementX][destroyerPlacementY - 1] = 'C';
-            gameBoard[destroyerPlacementX][destroyerPlacementY - 2] = 'C';
-        }
-
-        if (horizontalOrVertical == 0){
-            int destroyerPlacementX = rand.nextInt(8) + 2;
-            int destroyerPlacementY = rand.nextInt(10);
-            gameBoard[destroyerPlacementX][destroyerPlacementY] = 'C';
-            gameBoard[destroyerPlacementX - 1][destroyerPlacementY] = 'C';
-            gameBoard[destroyerPlacementX - 2][destroyerPlacementY] = 'C';
-        }
-
-    }
-
-    public static int[][] positionStoring = new int[5][2];
+    public static int[][] positionStoring = new int[5][2];//stores ship positions (used in inheritance)
 
     public static void placeShip(char displayCharacter, int length, int shipOrder){
         
         Random rand = new Random();
 
-        int horizontalOrVertical = rand.nextInt(2);
+        int horizontalOrVertical = rand.nextInt(2);//generate random number from 0-1
 
         int counter = 0;
 
-        if (horizontalOrVertical == 1){
+        if (horizontalOrVertical == 1){//if random number = 1, ship is horizontal
 
             int placementX = 0;
             int placementY = 0;
 
+
+            //while loop checks if there is nothing blocking the ship when it is placed
             while (counter!=length){
                 counter = 0;
 
                 placementX = rand.nextInt(10);
-                placementY = rand.nextInt(10-length-1) + length - 1;
+                placementY = rand.nextInt(10-length-1) + length - 1;//starts ship placement well within field according to length, so that the ship doesn't hang off edge
     
                 for (int i = 0; i < length; i++){
-                    if (solutionBoard[placementX][placementY - i] == '-'){
-                        //solutionBoard[placementX][placementY - i] = displayCharacter;
-                        counter++;
-                    }
+                    if (solutionBoard[placementX][placementY - i] == '-'){//if spot is free
+                        counter++;//counter increases for every free spot for the ship. If this variable = ship length, you know all the spots are free for the ship
+                    }//if counter ≠ shiplength, this while loop happens again. The ship gets a new randomized position
                 } 
-                //System.out.println("For " + displayCharacter + ", counter is currently " + counter);
             }
 
+            //For loop to actually fill the field with ship
             for (int i = 0; i < length; i++){
                 solutionBoard[placementX][placementY - i] = displayCharacter;
                 }
 
-
+            //stores ship placement. shipOrder parameter is just to be able to log multiple ship locations in same array
             positionStoring[shipOrder][0] = placementX;
             positionStoring[shipOrder][1] = placementY;
         
             }
 
-    
+        //same thing but for vertical ship placement
         else if (horizontalOrVertical == 0){
             int placementX = 0;
             int placementY = 0;
@@ -158,33 +139,38 @@ public class field {
     int numberOfShipsSunk = 0;
 
 
-    int shipsSunk[] = {5, 4, 3, 2};
+    int shipsSunk[] = {5, 4, 3, 2, 2};//this array's elements count down when a specific ship is hit
     
 
 
-
+    //firing missiles at ships
     public void fire(int x, int y){
 
+        //ensures that shot is within the board
         if (x>9 || x<0 || y>9 || y<0) {
             System.out.println("Your shot misses since it's outside the board");
         }
+
+        //if it hits a ship:
         else if (solutionBoard[x][y] == 'A' || solutionBoard[x][y] == 'B' || solutionBoard[x][y] == 'C' || solutionBoard[x][y] == 'D'){
             gameBoard[x][y] = 'X';
             System.out.println("Hit!");
             numberOfTimesHit++;
             
-
+            //depending on which ship is hit, the shipSunk array element decreases. when array element is 0, it corresponds to a ship that's completely sunk
             if (solutionBoard[x][y] == 'A'){
-                shipsSunk[0]--;
+                shipsSunk[0]--;//shipsSunk[0] = 5. so if aircraft gets hit 5 times, shipsSunk[0] = 0, which registers the ship to have completely sunk
             }
             else if (solutionBoard[x][y] == 'B'){
-                shipsSunk[1]--;
+                shipsSunk[1]--;//same for battleship
             }
             else if (solutionBoard[x][y] == 'C'){
-                shipsSunk[2]--;
+                shipsSunk[2]--;//and cruiser
             }
 
         }
+
+        //if missile hits nothing
         else{
             gameBoard[x][y] = 'O';
         }
@@ -193,99 +179,4 @@ public class field {
 
     }
 
-    public static void countSunkenShips(){
-        for(int i = 0; i < boardSize; i++) {
-
-		}
-    }
 }
-
-    /*
-    public static void main(String[] args) {
-        System.out.println("aDFasdf");
-        
-        Scanner input = new Scanner(System.in);
-        
-        fillBoard(gameBoard);
-        fillBoard(solutionBoard);
-
-
-        placeShip('A', 5);
-        placeShip('B', 4);
-        placeShip('C', 3);
-        placeShip('D', 2);
-        placeShip('D', 2);
-
-        printBoard(gameBoard);
-
-        int loop = 1;
-
-        while (loop==1){
-            String userInput = input.nextLine();
-            if (userInput.startsWith("fire")){
-
-                System.out.print("X coordinate: ");
-                int xCoordinate = input.nextInt();
-
-
-                System.out.print("Y coordinate: ");
-                int yCoordinate = input.nextInt();
-
-                fire(xCoordinate, yCoordinate);
-
-                printBoard(gameBoard);
-
-            }
-
-
-            else if (userInput.equals("help")){
-                System.out.println("Possible commands: \nview board - displays the user’s board\nview ships - displays the placement of the ships\nfire - fires a missile at chosen cell\nstats - prints out the game statistics\nquit - exits the game");
-            }
-
-            else if (userInput.equals("stats")){
-                System.out.println("Number of missiles fired: " + numberOfMissilesFired);
-                if (numberOfMissilesFired > 0){
-                    System.out.println("Hit ratio: " + numberOfTimesHit / numberOfMissilesFired);
-                }
-                else if (numberOfMissilesFired == 0){
-                    System.out.println("Hit ratio: N/A; missles weren't fired");
-                }
-
-                for (int i = 0; i<3; i++){
-                    if (shipsSunk[i] == 0){
-                        numberOfShipsSunk++;
-                    }
-                }
-
-                System.out.println("Number of ships sunk:" + numberOfShipsSunk);
-
-                for (int i = 0; i<3; i++){
-                    System.out.println(shipsSunk[i] + " ");
-                }
-
-
-            }
-
-            else if (userInput.equals("view ships")){
-                printBoard(solutionBoard);
-            }
-
-            else if (userInput.equals("quit")){
-                System.out.println("Bye!");
-                loop = 0;
-            }
-
-            else {
-                System.out.println("Command not found!");
-            }
-
-
-        }
-
-
-
-    }
-}
-
-
-*/
