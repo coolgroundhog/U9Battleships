@@ -144,8 +144,8 @@ public class field {
                 solutionBoard[placementX - i][placementY] = displayCharacter;
                 }
 
-            placementX = positionStoring[shipOrder][0];
-            placementY = positionStoring[shipOrder][1];
+            positionStoring[shipOrder][0] = placementX;
+            positionStoring[shipOrder][1] = placementY;
 
             }
         
@@ -198,41 +198,9 @@ public class field {
 
 		}
     }
+}
 
     /*
-    static private char[][] myMap;
-    private char[][] solution;
-    private int row;
-    private int col;
-
-    public field() {
-        row = 1;
-        col = 0;
-        myMap = new char[20][20];
-        solution = new char[20][20];
-        fillMap(myMap);
-    }
-
-    private void fillMap(char[][] map) {
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                map[i][j] = '.';
-            }
-        }
-        myMap[row][col] = 'x';
-    }
-
-    private static void printMap(char[][] map) {
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    */
     public static void main(String[] args) {
         System.out.println("aDFasdf");
         
@@ -318,3 +286,6 @@ public class field {
 
     }
 }
+
+
+*/

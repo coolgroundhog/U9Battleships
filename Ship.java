@@ -20,10 +20,8 @@ public class Ship {
         return costPerArea*length;
     }
 
-
-    public static void main(String[] args) {
-        aircraftCarrier aCarrier = new aircraftCarrier();
+    public int getProduct(){
+        return locationX*locationY;
     }
-
 
 }

@@ -8,8 +8,9 @@ public class battleshipRunner {
     //Allows for user input for commands
     static Scanner input = new Scanner(System.in);
 
+
     public static void main(String[] args) {
-        
+
         //Creates object of field
         
         char [][] gameBoard = new char[10][10];
@@ -89,11 +90,56 @@ public class battleshipRunner {
                 aircraftCarrier aCarrier = new aircraftCarrier(myMap.positionStoring[0][0], myMap.positionStoring[0][1]);
 
                 System.out.println("Length: " + aCarrier.length);
-                System.out.println("Cost: " + aCarrier.getCost());
+                System.out.println("Total cost: " + aCarrier.getCost());
                 System.out.println("Weaponry: " + aCarrier.weaponry);
-                System.out.println("X-coordinate: "  + aCarrier.locationX);
+                System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + aCarrier.getProduct());
 
                 System.out.println(myMap.positionStoring[0][0]);
+
+            }
+
+            else if (userInput.equals("info battleship")){
+                battleship bShip = new battleship(myMap.positionStoring[1][0], myMap.positionStoring[1][1]);
+
+                System.out.println("Length: " + bShip.length);
+                System.out.println("Total cost: " + bShip.getCost());
+                System.out.println("Weaponry: " + bShip.weaponry);
+                System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + bShip.getProduct());
+            }
+
+
+            else if (userInput.equals("info cruiser")){
+                cruiser cShip = new cruiser(myMap.positionStoring[2][0], myMap.positionStoring[2][1]);
+
+                System.out.println("Length: " + cShip.length);
+                System.out.println("Total cost: " + cShip.getCost());
+                System.out.println("Weaponry: " + cShip.weaponry);
+                System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + cShip.getProduct());
+            
+            
+                System.out.println(myMap.positionStoring[2][0]);
+            }
+
+            else if (userInput.equals("info destroyer 1")){
+                destroyer dShip1 = new destroyer(myMap.positionStoring[3][0], myMap.positionStoring[3][1]);
+
+                System.out.println("Length: " + dShip1.length);
+                System.out.println("Total cost: " + dShip1.getCost());
+                System.out.println("Weaponry: " + dShip1.weaponry);
+                System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + dShip1.getProduct());
+            
+        
+            }
+
+            else if (userInput.equals("info destroyer 2")){
+                destroyer dShip2 = new destroyer(myMap.positionStoring[4][0], myMap.positionStoring[4][1]);
+
+                System.out.println("Length: " + dShip2.length);
+                System.out.println("Total cost: " + dShip2.getCost());
+                System.out.println("Weaponry: " + dShip2.weaponry);
+                System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + dShip2.getProduct());
+            
+        
             }
 
 
