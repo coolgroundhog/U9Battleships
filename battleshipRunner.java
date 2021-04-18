@@ -12,13 +12,10 @@ public class battleshipRunner {
     public static void main(String[] args) {
 
         //Creates object of field
-        
-        char [][] gameBoard = new char[10][10];
-        char [][] solutionBoard = new char[10][10];
 
         myMap.printSolution();
 
-
+        //ship placement
         myMap.placeShip('A', 5, 0);
         myMap.placeShip('B', 4, 1);
         myMap.placeShip('C', 3, 2);
@@ -30,8 +27,11 @@ public class battleshipRunner {
 
         int loop = 1;
 
+        //loop to keep asking user what they want to do
         while (loop==1){
             String userInput = input.nextLine();
+
+            //firing ship
             if (userInput.startsWith("fire")){
 
                 System.out.print("X coordinate: ");
@@ -41,39 +41,44 @@ public class battleshipRunner {
                 System.out.print("Y coordinate: ");
                 int yCoordinate = input.nextInt();
 
-                myMap.fire(xCoordinate, yCoordinate);
+                myMap.fire(xCoordinate, yCoordinate);//fire method from field.java
 
                 myMap.printBoard();
 
             }
 
-
+            //print list of commands
             else if (userInput.equals("help")){
                 System.out.println("Possible commands: \nview board - displays the user’s board\nview ships - displays the placement of the ships\nfire - fires a missile at chosen cell\nstats - prints out the game statistics\nquit - exits the game");
             }
 
+
+            //game statistics
             else if (userInput.equals("stats")){
+
+                //Number of missiles fired
                 System.out.println("Number of missiles fired: " + myMap.numberOfMissilesFired);
 
+
+                //Hit ratio
                 if (myMap.numberOfMissilesFired > 0){
                     System.out.println("Hit ratio: " + myMap.numberOfTimesHit / myMap.numberOfMissilesFired);
                 }
+
+                //condition needed bc if number of missiles fired = 0, you can't divide by 0
                 else if (myMap.numberOfMissilesFired == 0){
-                    System.out.println("Hit ratio: N/A; missles weren't fired");
+                    System.out.println("Hit ratio: N/A; missiles weren't fired");
                 }
 
+
+                //Number of ships sunk
                 for (int i = 0; i<3; i++){
-                    if (myMap.shipsSunk[i] == 0){
+                    if (myMap.shipsSunk[i] == 0){//checks if shipsSunk array element = 0. If it is (explained in field.java lines 154-171)
                         myMap.numberOfShipsSunk++;
                     }
                 }
 
                 System.out.println("Number of ships sunk:" + myMap.numberOfShipsSunk);
-
-                for (int i = 0; i<3; i++){
-                    System.out.println(myMap.shipsSunk[i] + " ");
-                }
-
 
             }
 
@@ -86,18 +91,21 @@ public class battleshipRunner {
                 loop = 0;
             }
 
-            else if (userInput.equals("info aircraft")){
-                aircraftCarrier aCarrier = new aircraftCarrier(myMap.positionStoring[0][0], myMap.positionStoring[0][1]);
 
+            //Specific info about ships
+            else if (userInput.equals("info aircraft")){
+                aircraftCarrier aCarrier = new aircraftCarrier(myMap.positionStoring[0][0], myMap.positionStoring[0][1]);//takes parameter for ship location. For myMap.positionStoring[X][Y], X corresponds to type of ship (0=aircraft). Y corresponds to X/Y coordinate
+
+                //Methods taken from ship superclass
                 System.out.println("Length: " + aCarrier.length);
                 System.out.println("Total cost: " + aCarrier.getCost());
                 System.out.println("Weaponry: " + aCarrier.weaponry);
                 System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + aCarrier.getProduct());
 
-                System.out.println(myMap.positionStoring[0][0]);
-
             }
 
+
+            //everything below is same as aircraft but calls on diff. subclasses
             else if (userInput.equals("info battleship")){
                 battleship bShip = new battleship(myMap.positionStoring[1][0], myMap.positionStoring[1][1]);
 
@@ -116,8 +124,6 @@ public class battleshipRunner {
                 System.out.println("Weaponry: " + cShip.weaponry);
                 System.out.println("Hint of location: the X coordinate * Y coordinate of one of the ship locations is: "  + cShip.getProduct());
             
-            
-                System.out.println(myMap.positionStoring[2][0]);
             }
 
             else if (userInput.equals("info destroyer 1")){
@@ -141,9 +147,6 @@ public class battleshipRunner {
             
         
             }
-
-
-
 
             else {
                 System.out.println("Command not found!");
